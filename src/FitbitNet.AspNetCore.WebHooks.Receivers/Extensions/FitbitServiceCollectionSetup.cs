@@ -1,3 +1,6 @@
+using System;
+using Microsoft.AspNetCore.WebHooks.Metadata;
+
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
@@ -7,7 +10,12 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddFitbitServices(IServiceCollection services)
         {
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
 
+            WebHookMetadata.Register<FitbitMetadata>(services);
         }
     }
 }
