@@ -10,7 +10,7 @@ namespace FitbitCoreReceiver.Controllers
     public class FitbitController
     {
         [FitbitWebHook]
-        public IAsyncResult FitbitScription(JObject data)
+        public IAsyncResult FitbitScription(string id, JObject data)
         {
             return null;
         }

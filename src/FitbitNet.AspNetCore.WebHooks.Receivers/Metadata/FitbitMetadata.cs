@@ -7,7 +7,7 @@ namespace Microsoft.AspNetCore.WebHooks.Metadata
     /// <summary>
     /// 
     /// </summary>
-    public class FitbitMetadata : WebHookMetadata
+    public class FitbitMetadata : WebHookMetadata, IWebHookVerifyCodeMetadata
     {
         /// <summary>
         /// 
