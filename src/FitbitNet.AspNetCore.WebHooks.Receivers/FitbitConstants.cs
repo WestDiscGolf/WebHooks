@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Microsoft.AspNetCore.WebHooks
 {
     class FitbitConstants
     {
         public static string VerifyQueryParameterName => "verify";
+
+        public static string ReceiverName => "fitbit";
     }
 }
