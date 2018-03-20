@@ -16,6 +16,8 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             WebHookMetadata.Register<FitbitMetadata>(services);
+
+            // replace WebHookGetHeadRequestFilter.Order
         }
     }
 }
