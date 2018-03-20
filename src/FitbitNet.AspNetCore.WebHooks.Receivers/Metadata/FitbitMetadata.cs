@@ -4,7 +4,21 @@ using System.Text;
 
 namespace Microsoft.AspNetCore.WebHooks.Metadata
 {
-    public class FitbitMetadata
+    /// <summary>
+    /// 
+    /// </summary>
+    public class FitbitMetadata : WebHookMetadata
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public FitbitMetadata() : base("fitbit")
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override WebHookBodyType BodyType => WebHookBodyType.Json;
     }
 }

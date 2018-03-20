@@ -4,7 +4,16 @@ using System.Text;
 
 namespace Microsoft.AspNetCore.WebHooks
 {
-    public class FitbitWebHookAttribute
+    /// <summary>
+    /// 
+    /// </summary>
+    public class FitbitWebHookAttribute : WebHookAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public FitbitWebHookAttribute() : base("fitbit")
+        {
+        }
     }
 }
