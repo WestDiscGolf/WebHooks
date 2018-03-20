@@ -1,4 +1,4 @@
-namespace Microsoft.AspNetCore.WebHooks
+﻿namespace Microsoft.AspNetCore.WebHooks
 {
     class FitbitConstants
     {
