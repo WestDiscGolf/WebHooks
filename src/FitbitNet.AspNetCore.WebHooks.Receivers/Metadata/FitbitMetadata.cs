@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Microsoft.AspNetCore.WebHooks.Metadata
 {
     /// <summary>
     /// 
     /// </summary>
-    public class FitbitMetadata : WebHookMetadata, IWebHookVerifyCodeMetadata
+    public class FitbitMetadata : WebHookMetadata/*, IWebHookMetadata, IWebHookReceiver*/
     {
         /// <summary>
         /// 
         /// </summary>
-        public FitbitMetadata() : base("fitbit")
+        public FitbitMetadata()
+            : base(FitbitConstants.ReceiverName)
         {
         }
 

@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.WebHooks.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
@@ -17,26 +14,64 @@ namespace Microsoft.AspNetCore.WebHooks.Filters
     /// <summary>
     /// 
     /// </summary>
-    public class FitbitVerifySubscriberFilter : WebHookVerifyCodeFilter
+    public class FitbitVerifySubscriberFilter : WebHookSecurityFilter, IResourceFilter, IWebHookReceiver // need this!
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="hostingEnvironment"></param>
-        /// <param name="verifyCodeMetadata"></param>
         /// <param name="loggerFactory"></param>
         public FitbitVerifySubscriberFilter(
             IConfiguration configuration,
             IHostingEnvironment hostingEnvironment,
-            IEnumerable<IWebHookVerifyCodeMetadata> verifyCodeMetadata,
             ILoggerFactory loggerFactory)
-            : base(configuration, hostingEnvironment, verifyCodeMetadata, loggerFactory)
+            : base(configuration, hostingEnvironment, loggerFactory)
         {
         }
 
-        /// <inheritdoc />
-        protected override IActionResult EnsureValidCode(HttpRequest request, RouteData routeData, string receiverName)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnResourceExecuting(ResourceExecutingContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // Check that it is a Get request
+            var routeData = context.RouteData;
+            var request = context.HttpContext.Request;
+            if (routeData.TryGetWebHookReceiverName(out var receiverName)
+                && HttpMethods.IsGet(request.Method))
+            {
+                var result = EnsureValidCode(context.HttpContext.Request, routeData, receiverName);
+                if (result != null)
+                {
+                    context.Result = result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnResourceExecuted(ResourceExecutedContext context)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="routeData"></param>
+        /// <param name="receiverName"></param>
+        /// <returns></returns>
+        private IActionResult EnsureValidCode(HttpRequest request, RouteData routeData, string receiverName)
         {
             if (request == null)
             {
@@ -59,23 +94,15 @@ namespace Microsoft.AspNetCore.WebHooks.Filters
 
             var code = request.Query[FitbitConstants.VerifyQueryParameterName];
             if (StringValues.IsNullOrEmpty(code))
-            {
+            {   
                 Logger.LogWarning(
                     400,
                     "A '{ReceiverName}' WebHook verification request must contain a " +
-                    $"'{WebHookConstants.CodeQueryParameterName}' query " +
+                    $"'{FitbitConstants.VerifyQueryParameterName}' query " +
                     "parameter.",
                     receiverName);
 
-                // TODO: FIX
-
-                var message = string.Format("It gone wrong! {0}, {1}, {2}",
-                    CultureInfo.CurrentCulture,
-                    receiverName,
-                    WebHookConstants.CodeQueryParameterName);
-                var noCode = new BadRequestObjectResult(message);
-
-                return noCode;
+                return new NotFoundResult();
             }
 
             var secretKey = GetSecretKey(
@@ -85,26 +112,37 @@ namespace Microsoft.AspNetCore.WebHooks.Filters
                 WebHookConstants.CodeParameterMaxLength);
             if (secretKey == null)
             {
+                // if no secret code then it shouldn't expose the end point to a potential attacker
                 return new NotFoundResult();
             }
 
-            if (!SecretEqual(code, secretKey))
+            if (SecretEqual(code, secretKey))
             {
-                //Logger.LogWarning(
-                //    401,
-                //    $"The '{WebHookConstants.CodeQueryParameterName}' query parameter provided in the HTTP request " +
-                //    "did not match the expected value.");
-
-                //var message = string.Format("It also gone wrong {0}, {1}",
-                //    CultureInfo.CurrentCulture,
-                //    WebHookConstants.CodeQueryParameterName);
-                //var invalidCode = new BadRequestObjectResult(message);
-
-                //return invalidCode;
-                return new NotFoundResult();
+                // Good verify code return a 204
+                return new StatusCodeResult((int)HttpStatusCode.NoContent);
             }
 
-            return new NoContentResult();
+            // return 404 if bad verify code
+            return new NotFoundResult();
+        }
+        
+        /// <inheritdoc />
+        public string ReceiverName => FitbitConstants.ReceiverName;
+
+        /// <inheritdoc />
+        public bool IsApplicable(string receiverName)
+        {
+            if (receiverName == null)
+            {
+                throw new ArgumentNullException(nameof(receiverName));
+            }
+
+            if (ReceiverName == null)
+            {
+                return true;
+            }
+
+            return string.Equals(ReceiverName, receiverName, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
