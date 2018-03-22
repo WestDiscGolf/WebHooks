@@ -1,9 +1,10 @@
 using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebHooks;
 
 namespace FitbitCoreReceiver.Controllers
 {
-    public class FitbitController
+    public class FitbitController : ControllerBase
     {
         [FitbitWebHook]
         public IAsyncResult FitbitSubscription(string id, Notification[] data)
