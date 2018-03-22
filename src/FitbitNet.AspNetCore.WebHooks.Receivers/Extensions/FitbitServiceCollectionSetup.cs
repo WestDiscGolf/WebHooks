@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebHooks.Filters;
 using Microsoft.AspNetCore.WebHooks.Metadata;
@@ -24,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             WebHookMetadata.Register<FitbitMetadata>(services);
 
             services.TryAddSingleton<FitbitVerifySubscriberFilter>();
+            services.TryAddSingleton<FitbitVerifySignatureFilter>();
         }
 
         private class MvcOptionsSetup : IConfigureOptions<MvcOptions>
@@ -37,6 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
 
                 options.Filters.AddService<FitbitVerifySubscriberFilter>(WebHookVerifyCodeFilter.Order);
+                options.Filters.AddService<FitbitVerifySignatureFilter>(WebHookSecurityFilter.Order);
             }
         }
     }
