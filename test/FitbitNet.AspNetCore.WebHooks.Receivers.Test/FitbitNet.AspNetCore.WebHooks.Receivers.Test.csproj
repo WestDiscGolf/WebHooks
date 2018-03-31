@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(StandardTestTfms)</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FitbitNet.AspNetCore.WebHooks.Receivers\FitbitNet.AspNetCore.WebHooks.Receivers.csproj" />
+  </ItemGroup>
+</Project>
