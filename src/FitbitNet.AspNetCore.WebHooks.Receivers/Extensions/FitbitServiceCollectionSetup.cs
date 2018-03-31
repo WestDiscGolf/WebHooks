@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebHooks;
 using Microsoft.AspNetCore.WebHooks.Filters;
 using Microsoft.AspNetCore.WebHooks.Metadata;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,13 +13,18 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     internal static class FitbitServiceCollectionSetup
     {
-        public static void AddFitbitServices(IServiceCollection services)
+        public static void AddFitbitServices(IServiceCollection services, Action<FitbitWebhookReceiverOptions> setupAction)
         {
             if (services == null)
             {
                 throw new ArgumentNullException(nameof(services));
             }
 
+            if (setupAction != null)
+            {
+                services.Configure(setupAction);
+            }
+            
             services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>());
             WebHookMetadata.Register<FitbitMetadata>(services);
 
