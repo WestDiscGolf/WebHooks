@@ -1,6 +1,8 @@
 using System;
+using FitbitNet.AspNetCore.WebHooks;
+using FitbitNet.AspNetCore.WebHooks.Filters;
+using FitbitNet.AspNetCore.WebHooks.Metadata;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebHooks;
 using Microsoft.AspNetCore.WebHooks.Filters;
 using Microsoft.AspNetCore.WebHooks.Metadata;
 using Microsoft.Extensions.DependencyInjection.Extensions;

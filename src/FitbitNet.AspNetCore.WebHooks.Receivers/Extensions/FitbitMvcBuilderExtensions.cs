@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel;
-using Microsoft.AspNetCore.WebHooks;
+using FitbitNet.AspNetCore.WebHooks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

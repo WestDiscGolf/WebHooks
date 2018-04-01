@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Microsoft.AspNetCore.WebHooks
+namespace FitbitNet.AspNetCore.WebHooks
 {
     /// <summary>
     /// Data transfer object which stores the data for the notification. The data in this object allows for further

@@ -1,4 +1,4 @@
-namespace Microsoft.AspNetCore.WebHooks
+namespace FitbitNet.AspNetCore.WebHooks
 {
     /// <summary>
     /// 

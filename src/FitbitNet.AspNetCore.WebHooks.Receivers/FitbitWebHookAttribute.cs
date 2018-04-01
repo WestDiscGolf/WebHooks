@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.AspNetCore.WebHooks;
 
-namespace Microsoft.AspNetCore.WebHooks
+namespace FitbitNet.AspNetCore.WebHooks
 {
     /// <summary>
     /// 
