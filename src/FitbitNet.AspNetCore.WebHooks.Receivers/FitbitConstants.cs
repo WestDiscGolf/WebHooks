@@ -1,6 +1,6 @@
-namespace Microsoft.AspNetCore.WebHooks
+namespace FitbitNet.AspNetCore.WebHooks
 {
-    class FitbitConstants
+    internal class FitbitConstants
     {
         public static string VerifyQueryParameterName => "verify";
 

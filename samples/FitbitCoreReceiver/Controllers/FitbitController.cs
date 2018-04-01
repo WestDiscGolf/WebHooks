@@ -1,6 +1,6 @@
 using System;
+using FitbitNet.AspNetCore.WebHooks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebHooks;
 
 namespace FitbitCoreReceiver.Controllers
 {

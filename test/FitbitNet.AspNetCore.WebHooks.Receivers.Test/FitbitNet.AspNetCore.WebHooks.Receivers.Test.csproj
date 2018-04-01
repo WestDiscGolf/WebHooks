@@ -6,4 +6,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\FitbitNet.AspNetCore.WebHooks.Receivers\FitbitNet.AspNetCore.WebHooks.Receivers.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Filters\" />
+    <Folder Include="Metadata\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>
