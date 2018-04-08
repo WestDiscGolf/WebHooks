@@ -14,16 +14,25 @@ using Microsoft.Extensions.Primitives;
 namespace FitbitNet.AspNetCore.WebHooks.Filters
 {
     /// <summary>
-    /// 
+    /// The <see cref="FitbitVerifySubscriberFilter"/> is required to process the GET request with a positive and negative
+    /// verify code when a subscription end point is configured in the Fitbit API portal. An end point has to be verified
+    /// before subscription notifications will be send to the api end point.
     /// </summary>
-    public class FitbitVerifySubscriberFilter : WebHookSecurityFilter, IResourceFilter, IWebHookReceiver // need this!
+    public class FitbitVerifySubscriberFilter : WebHookSecurityFilter, IResourceFilter, IWebHookReceiver
     {
         /// <summary>
-        /// 
+        /// Instantiates a new <see cref="FitbitVerifySubscriberFilter"/> instance.
         /// </summary>
-        /// <param name="configuration"></param>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="loggerFactory"></param>
+        /// <param name="configuration">
+        /// The <see cref="IConfiguration"/> used to initialize <see cref="WebHookSecurityFilter.Configuration"/>.
+        /// </param>
+        /// <param name="hostingEnvironment">
+        /// The <see cref="IHostingEnvironment" /> used to initialize
+        /// <see cref="WebHookSecurityFilter.HostingEnvironment"/>.
+        /// </param>
+        /// <param name="loggerFactory">
+        /// The <see cref="ILoggerFactory"/> used to initialize <see cref="WebHookSecurityFilter.Logger"/>.
+        /// </param>
         public FitbitVerifySubscriberFilter(
             IConfiguration configuration,
             IHostingEnvironment hostingEnvironment,
@@ -32,10 +41,7 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
+        /// <inheritdoc />
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
             if (context == null)
@@ -57,13 +63,10 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
+        /// <inheritdoc />
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
-
+            // no-op
         }
 
         /// <summary>

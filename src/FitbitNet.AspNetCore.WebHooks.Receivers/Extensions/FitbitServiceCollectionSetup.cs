@@ -10,9 +10,6 @@ using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    /// <summary>
-    /// 
-    /// </summary>
     internal static class FitbitServiceCollectionSetup
     {
         public static void AddFitbitServices(IServiceCollection services, Action<FitbitWebhookReceiverOptions> setupAction)
@@ -22,11 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(services));
             }
 
-            if (setupAction != null)
-            {
-                services.Configure(setupAction);
-            }
-            
+            // register the options action
+            services.Configure(setupAction);
+
             services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>());
             WebHookMetadata.Register<FitbitMetadata>(services);
 
