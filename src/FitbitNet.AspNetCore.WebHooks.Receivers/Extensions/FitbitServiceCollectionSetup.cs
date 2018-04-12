@@ -2,11 +2,8 @@ using System;
 using FitbitNet.AspNetCore.WebHooks;
 using FitbitNet.AspNetCore.WebHooks.Filters;
 using FitbitNet.AspNetCore.WebHooks.Metadata;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebHooks.Filters;
 using Microsoft.AspNetCore.WebHooks.Metadata;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -22,26 +19,26 @@ namespace Microsoft.Extensions.DependencyInjection
             // register the options action
             services.Configure(setupAction);
 
-            services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>());
+            //services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>());
             WebHookMetadata.Register<FitbitMetadata>(services);
 
             services.TryAddSingleton<FitbitVerifySubscriberFilter>();
             services.TryAddSingleton<FitbitVerifySignatureFilter>();
         }
 
-        private class MvcOptionsSetup : IConfigureOptions<MvcOptions>
-        {
-            /// <inheritdoc />
-            public void Configure(MvcOptions options)
-            {
-                if (options == null)
-                {
-                    throw new ArgumentNullException(nameof(options));
-                }
+        //private class MvcOptionsSetup : IConfigureOptions<MvcOptions>
+        //{
+        //    /// <inheritdoc />
+        //    public void Configure(MvcOptions options)
+        //    {
+        //        if (options == null)
+        //        {
+        //            throw new ArgumentNullException(nameof(options));
+        //        }
 
-                options.Filters.AddService<FitbitVerifySubscriberFilter>(WebHookVerifyCodeFilter.Order);
-                options.Filters.AddService<FitbitVerifySignatureFilter>(WebHookSecurityFilter.Order);
-            }
-        }
+        //        options.Filters.AddService<FitbitVerifySubscriberFilter>(WebHookVerifyCodeFilter.Order);
+        //        options.Filters.AddService<FitbitVerifySignatureFilter>(WebHookSecurityFilter.Order);
+        //    }
+        //}
     }
 }

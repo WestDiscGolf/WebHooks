@@ -63,11 +63,9 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
 
             if (_options.EnableSignatureChecking)
             {
-                var routeData = context.RouteData;
+                //var routeData = context.RouteData;
                 var request = context.HttpContext.Request;
-                if (routeData.TryGetWebHookReceiverName(out var receiverName) &&
-                    IsApplicable(receiverName) &&
-                    HttpMethods.IsPost(request.Method))
+                if (HttpMethods.IsPost(request.Method))
                 {
                     // 1. Confirm a secure connection
                     var errorResult = EnsureSecureConnection(ReceiverName, context.HttpContext.Request);
@@ -90,7 +88,7 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
                     var expectedHash = Convert.FromBase64String(header);
 
                     // 3. get the OAuth secret from the configuration
-                    var secretAsString = GetSecretKey(FitbitConstants.ReceiverName, routeData, FitbitConstants.MinLength, FitbitConstants.MaxLength);
+                    var secretAsString = GetSecretKey(FitbitConstants.ReceiverName, context.RouteData, FitbitConstants.MinLength, FitbitConstants.MaxLength);
 
                     // "consumer_secret&"
                     var secret = Encoding.ASCII.GetBytes($"{secretAsString}&");

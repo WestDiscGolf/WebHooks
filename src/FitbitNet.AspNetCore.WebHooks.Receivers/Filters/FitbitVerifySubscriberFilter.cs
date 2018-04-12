@@ -134,6 +134,11 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
         /// <inheritdoc />
         public string ReceiverName => FitbitConstants.ReceiverName;
 
+        ///// <summary>
+        ///// Need to put the fitbit verify subscriber in at the same point as the code verify
+        ///// </summary>
+        //public new int Order => WebHookVerifyCodeFilter.Order;
+
         /// <inheritdoc />
         public bool IsApplicable(string receiverName)
         {
