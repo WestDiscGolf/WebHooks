@@ -232,6 +232,15 @@ namespace Microsoft.AspNetCore.WebHooks.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; WebHook receiver does not support an empty request body..
+        /// </summary>
+        internal static string VerifyMethod_BadBody {
+            get {
+                return ResourceManager.GetString("VerifyMethod_BadBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The &apos;{0}&apos; WebHook receiver does not support the HTTP &apos;{1}&apos; method..
         /// </summary>
         internal static string VerifyMethod_BadMethod {
