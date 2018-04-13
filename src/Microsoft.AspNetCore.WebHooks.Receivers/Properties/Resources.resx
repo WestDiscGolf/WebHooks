@@ -174,6 +174,9 @@
   <data name="VerifyCode_BadCode" xml:space="preserve">
     <value>The '{0}' query parameter provided in the HTTP request did not match the expected value.</value>
   </data>
+  <data name="VerifyMethod_BadBody" xml:space="preserve">
+    <value>The '{0}' WebHook receiver does not support an empty request body.</value>
+  </data>
   <data name="VerifyMethod_BadMethod" xml:space="preserve">
     <value>The '{0}' WebHook receiver does not support the HTTP '{1}' method.</value>
   </data>
