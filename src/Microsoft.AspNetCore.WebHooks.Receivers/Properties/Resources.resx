@@ -135,32 +135,32 @@
   <data name="GetRequest_NoQueryParameter" xml:space="preserve">
     <value>A '{0}' WebHook verification request must contain a '{1}' query parameter.</value>
   </data>
-  <data name="MetadataProvider_ConflictingMetadataServices" xml:space="preserve">
+  <data name="PropertyProvider_ConflictingMetadataServices" xml:space="preserve">
     <value>Invalid metadata services found for the '{0}' WebHook receiver. Receivers must not provide both '{1}' and '{2}' services.</value>
   </data>
-  <data name="MetadataProvider_DuplicateMetadata" xml:space="preserve">
+  <data name="PropertyProvider_DuplicateMetadata" xml:space="preserve">
     <value>Invalid metadata services found for the '{0}' WebHook receiver. Receivers must not have more than one '{1}' registration.</value>
   </data>
-  <data name="MetadataProvider_MissingMetadata" xml:space="preserve">
+  <data name="PropertyProvider_MissingMetadata" xml:space="preserve">
     <value>Invalid metadata services found for the '{0}' WebHook receiver. Receiver must have an '{1}' implementation.</value>
   </data>
-  <data name="MetadataProvider_MissingMetadataServices" xml:space="preserve">
+  <data name="PropertyProvider_MissingMetadataServices" xml:space="preserve">
     <value>Invalid metadata services found for the '{0}' WebHook receiver. Receivers with attributes implementing '{1}' must also provide a '{2}' service.</value>
   </data>
   <data name="RequestReader_ModelBindingFailed" xml:space="preserve">
     <value>The MVC model binding system failed. Model state is valid but model was not set.</value>
   </data>
-  <data name="RoutingProvider_MixedRouteWithWebHookAttribute" xml:space="preserve">
-    <value>'{0}' and '{1}' were applied to the same action. '{2}' must not be combined with another attribute that provides a route template.</value>
-  </data>
   <data name="Security_BadSecret" xml:space="preserve">
-    <value>Could not find a valid configuration for the '{0}' WebHook receiver, instance '{1}'. The value must be between {2} and {3} characters long.</value>
+    <value>Could not find a valid configuration for the '{0}' WebHook receiver, instance '{1}'. The value must be at least {2} characters long.</value>
   </data>
   <data name="Security_NoHttps" xml:space="preserve">
     <value>The '{0}' WebHook receiver requires {1} in order to be secure. Register a WebHook URI of type '{2}'.</value>
   </data>
   <data name="Security_NoSecrets" xml:space="preserve">
     <value>Could not find a valid configuration for the '{0}' WebHook receiver. Configure secret keys for this receiver.</value>
+  </data>
+  <data name="SelectorModelProvider_MixedRouteWithWebHookAttribute" xml:space="preserve">
+    <value>'{0}' and '{1}' were applied to the same action. '{2}' must not be combined with attribute routing or non-WebHook constraints.</value>
   </data>
   <data name="VerifyBody_NoFormData" xml:space="preserve">
     <value>The '{0}' WebHook receiver does not support content type '{1}'. The WebHook request must contain an entity body formatted as HTML form URL-encoded data.</value>
@@ -173,6 +173,9 @@
   </data>
   <data name="VerifyCode_BadCode" xml:space="preserve">
     <value>The '{0}' query parameter provided in the HTTP request did not match the expected value.</value>
+  </data>
+  <data name="VerifyMethod_BadBody" xml:space="preserve">
+    <value>The '{0}' WebHook receiver does not support an empty request body.</value>
   </data>
   <data name="VerifyMethod_BadMethod" xml:space="preserve">
     <value>The '{0}' WebHook receiver does not support the HTTP '{1}' method.</value>
