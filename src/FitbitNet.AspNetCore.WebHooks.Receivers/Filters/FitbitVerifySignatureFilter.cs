@@ -88,7 +88,7 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
                     var expectedHash = Convert.FromBase64String(header);
 
                     // 3. get the OAuth secret from the configuration
-                    var secretAsString = GetSecretKey(FitbitConstants.ReceiverName, context.RouteData, FitbitConstants.MinLength, FitbitConstants.MaxLength);
+                    var secretAsString = GetSecretKey(FitbitConstants.ReceiverName, context.RouteData, FitbitConstants.OAuthClientMinLength);
 
                     // "consumer_secret&"
                     var secret = Encoding.ASCII.GetBytes($"{secretAsString}&");

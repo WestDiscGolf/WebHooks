@@ -113,8 +113,8 @@ namespace FitbitNet.AspNetCore.WebHooks.Filters
             var secretKey = GetSecretKey(
                 receiverName,
                 routeData,
-                WebHookConstants.CodeParameterMinLength,
-                WebHookConstants.CodeParameterMaxLength);
+                FitbitConstants.VerifyQueryCodeMinLength);
+
             if (secretKey == null)
             {
                 // if no secret code then it shouldn't expose the end point to a potential attacker

@@ -8,9 +8,9 @@ namespace FitbitNet.AspNetCore.WebHooks
 
         public static string SignatureHeaderName => "X-Fitbit-Signature";
 
-        public static int MinLength => 32;
+        public static int OAuthClientMinLength => 32;
 
-        public static int MaxLength => 32;
+        public static int VerifyQueryCodeMinLength => 32;
 
         public static string OAuthClientSecretKey => "OAuthClientSecret";
     }
